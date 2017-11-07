@@ -1,9 +1,6 @@
 <?php
-
-require_once('includes/valores_menu.php');
-$activo = 'Inicio';
-session_start();
-
+  require_once('includes/init_session.php');
+  require_once('includes/valores_menu.php');
 ?>
 
 <!DOCTYPE html>
@@ -15,25 +12,6 @@ session_start();
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript">
-    $(function() {
-        $('#login-form-link').click(function(e) {
-          $("#login-form").delay(100).fadeIn(100);
-        $("#register-form").fadeOut(100);
-        $('#register-form-link').removeClass('active');
-        $(this).addClass('active');
-        e.preventDefault();
-      });
-      $('#register-form-link').click(function(e) {
-        $("#register-form").delay(100).fadeIn(100);
-        $("#login-form").fadeOut(100);
-        $('#login-form-link').removeClass('active');
-        $(this).addClass('active');
-        e.preventDefault();
-      });
-
-    });
-    </script>
   </head>
 
   <body>
@@ -43,6 +21,11 @@ session_start();
   ?>
 
   <div id="main">
+
+    <?php
+    include_once('includes/nav_estado.php');
+    ?>
+    
     <div class="content">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">

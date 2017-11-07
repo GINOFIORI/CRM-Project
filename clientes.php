@@ -19,27 +19,42 @@
   <?php
   include_once('includes/menu_inicial.php')
   ?>
-
-  <div id="main">
+    
+  <div id="main" style="background-color: white">
 
     <?php
     include_once('includes/nav_estado.php');
     ?>
-    
-    <div class="content">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <div class="row">
-            <div class="col-lg-12" >
-              <div class="jumbotron text-center" style="background-color: transparent;">
-                <h1><i class="fa fa-cogs fa-4x"></i></h1> 
-                <h3><strong>Customer Relationship Managment Tool</strong></h3>
-                <h5 style="text-align: right;"> Development by Gino Fiori <i class="fa fa-registered fa-1x"></i></h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+    <div class="container" >
+      <h2>Hover Rows</h2>
+      <p>The .table-hover class enables a hover state on table rows:</p>            
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+          </tr>
+          <tr>
+            <td>Mary</td>
+            <td>Moe</td>
+            <td>mary@example.com</td>
+          </tr>
+          <tr>
+            <td>July</td>
+            <td>Dooley</td>
+            <td>july@example.com</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

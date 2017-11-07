@@ -6,7 +6,5 @@
   </a>
   <?php 
   }
-  if(array_key_exists('logged', $_SESSION)){ ?>
-      <a href="includes/cerrar_sesion.php">Cerrar Session</a>
-  <?php ;} ?>
+  ?>
 </div>
