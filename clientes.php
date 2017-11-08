@@ -1,6 +1,15 @@
 <?php
   require_once('includes/init_session.php');
   require_once('includes/valores_menu.php');
+  require_once('includes/conexion.php');
+
+
+  $select = "SELECT * FROM clientes";
+  $result = mysqli_query($miConexion, $select);
+  if(!$result) { 
+    echo(mysql_error()); // TODO: better error handling
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,39 +29,50 @@
   include_once('includes/menu_inicial.php')
   ?>
     
-  <div id="main" style="background-color: white">
+  <div id="main">
 
     <?php
     include_once('includes/nav_estado.php');
     ?>
 
-    <div class="container" >
-      <h2>Hover Rows</h2>
-      <p>The .table-hover class enables a hover state on table rows:</p>            
+    <div class="container-fluid" >
+      <h2>Clientes</h2>      
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
+            <th>Nombre</th>
+            <th>CUIT</th>
+            <th>Email 1</th>
+            <th>Email 2</th>
+            <th>Domicilio</th>
+            <th>Observaciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
+          <?php
+          while ($fila = mysqli_fetch_array($result)) {
+            echo "<tr class='clickable-row'>";
+              echo '<td style="cursor:pointer">';
+              echo $fila['nombre'];
+              echo '</td>';
+              echo '<td style="cursor:pointer">';
+              echo $fila['cuit'];
+              echo '</td>';
+              echo '<td style="cursor:pointer">';
+              echo $fila['email-1'];
+              echo '</td>';
+              echo '<td style="cursor:pointer">';
+              echo $fila['email-2'];
+              echo '</td>';
+              echo '<td style="cursor:pointer">';
+              echo $fila['domicilio'];
+              echo '</td>';
+              echo '<td style="cursor:pointer">';
+              echo $fila['observaciones'];
+              echo '</td>';
+            echo '</tr>';          
+          }
+          ?>
         </tbody>
       </table>
     </div>
@@ -62,6 +82,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
   <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+  </script>
 
   </body>
 </html>

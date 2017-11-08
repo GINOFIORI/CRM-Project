@@ -334,3 +334,18 @@ body {
   height: 25px !important;
   padding:2px;
 }
+
+/* tabla transparente */
+
+.table > tbody > tr > th,
+.table > tbody > tr > td{
+  border-top: 1px solid #666;
+}
+.table > thead > tr > th,
+.table > thead > tr > td{
+  border-bottom: 2px solid #666;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #b4eeb4;
+}
