@@ -1,5 +1,5 @@
 <?php
-  require_once('includes/init_session.php');
+  require_once('includes/init_session_check.php');
   require_once('includes/valores_menu.php');
 ?>
 

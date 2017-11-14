@@ -18,7 +18,7 @@
       return $_COOKIE['recordar'];
   }
 
-  function imprimirAlerta () {
+  function imprimirAlerta(){
      return "<p><strong>El usuario o la contrase&ntilde;a son inv&aacute;lidos</strong></p>";
   }
 

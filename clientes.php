@@ -1,5 +1,5 @@
 <?php
-  require_once('includes/init_session.php');
+  require_once('includes/init_session_check.php');
   require_once('includes/valores_menu.php');
   require_once('includes/conexion.php');
 
@@ -21,6 +21,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -36,7 +38,60 @@
     ?>
 
     <div class="container-fluid" >
-      <h2>Clientes</h2>      
+      <div class="col-sm-6">
+        <h2 style="margin-top: 0px">Clientes</h2>     
+      </div> 
+      <div class="col-sm-6" style="text-align: right">
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#agregarUsuario">
+          <i class="fa fa-user-plus"></i>
+        </button>
+        <button type="button" class="btn btn-sm btn-primary">
+          <i class="fa fa-user-times"></i>
+        </button>
+      </div>
+
+        <div class="modal fade" id="agregarUsuario" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center">Nuevo Cliente</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-area">  
+                  <form role="form">
+                  <br style="clear:both">
+                  <div class="form-group col-sm-8">
+                    <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" placeholder="Nombre" required>
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT" required>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <input type="text" class="form-control" id="email1" name="email1" placeholder="Email 1" required>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <input type="text" class="form-control" id="email2" name="email2" placeholder="Email 2" required>
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Domicilio" required>
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <textarea class="form-control" type="textarea" id="observaciones" placeholder="Observaciones" maxlength="140" rows="7"></textarea>
+                    <span class="help-block"><p id="characterLeft" class="help-block ">Límite de caracteres alcanzado</p></span>
+                  </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="submit" name="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Agregar</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
       <table class="table table-hover">
         <thead>
           <tr>
@@ -88,6 +143,27 @@
             window.location = $(this).data("href");
         });
     });
+  </script>
+
+  <script type="text/javascript">
+  $(document).ready(function(){ 
+      $('#characterLeft').text('140 caracteres restantes');
+      $('#observaciones').keydown(function () {
+          var max = 140;
+          var len = $(this).val().length;
+          if (len >= max) {
+              $('#characterLeft').text('Límite de caracteres alcanzado');
+              $('#characterLeft').addClass('red');
+              $('#btnSubmit').addClass('disabled');            
+          } 
+          else {
+              var ch = max - len;
+              $('#characterLeft').text(ch + ' caracteres restantes');
+              $('#btnSubmit').removeClass('disabled');
+              $('#characterLeft').removeClass('red');            
+          }
+      });    
+  });
   </script>
 
   </body>

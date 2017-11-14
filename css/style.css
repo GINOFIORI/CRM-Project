@@ -9,11 +9,14 @@ body {
 
 body{
   width: 100%;
+  /*
   background: -webkit-linear-gradient(left, #22d686, #24d3d3, #22d686, #24d3d3);
   background: linear-gradient(to right, #22d686, #24d3d3, #22d686, #24d3d3);
   background-size: 600% 100%;
   -webkit-animation: HeroBG 20s ease infinite;
           animation: HeroBG 20s ease infinite;
+  */
+  background-color: #24d3d3 ;
 }
 
 @-webkit-keyframes HeroBG {
@@ -347,5 +350,5 @@ body {
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #b4eeb4;
+  background-color: #84d3d7;
 }
