@@ -338,6 +338,10 @@ body {
   padding:2px;
 }
 
+.btn-sm{
+  transition: 0 !important;
+}
+
 /* tabla transparente */
 
 .table > tbody > tr > th,
