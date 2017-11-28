@@ -3,11 +3,34 @@
   require_once('includes/valores_menu.php');
   require_once('includes/conexion.php');
 
-
   $select = "SELECT * FROM clientes";
   $result = mysqli_query($miConexion, $select);
-  if(!$result) { 
+  if(!$result){ 
     echo(mysql_error()); // TODO: better error handling
+  }
+
+  if (array_key_exists('submit', $_REQUEST)){
+
+    $nombreCliente = $_REQUEST['nombreCliente'];
+    $cuit          = $_REQUEST['cuit'];
+    $email1        = $_REQUEST['email1'];
+    $email2        = $_REQUEST['email2'];
+    $domicilio     = $_REQUEST['domicilio'];
+    $observaciones = $_REQUEST['observaciones'];
+
+    $query2 = mysqli_query($miConexion, 'SELECT MAX(codigo) AS codigo FROM clientes');
+    $latest = mysqli_fetch_array($query2);
+    $codCliente = $latest['codigo'] + 1;
+
+    $insert = "INSERT INTO `crm_client`.`clientes`(`codigo`, `nombre`, `cuit`, `email-1`, `email-2`, `domicilio`, `observaciones`) 
+               VALUES ( '$codCliente' , '$nombreCliente', '$cuit' , '$email1' , '$email2', '$domicilio', '$observaciones')";
+
+
+    $resultInsert = mysqli_query($miConexion, $insert);
+    if(!$resultInsert){ 
+      echo(mysql_error()); // TODO: better error handling
+    }
+
   }
 
 ?>
@@ -49,46 +72,49 @@
           <i class="fa fa-user-times"></i>
         </button>
       </div>
-
+      <!-- Modal para agregar clientes -->
       <div class="modal fade" id="agregarUsuario" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title" style="text-align: center">Nuevo Cliente</h4>
-            </div>
-            <div class="col-sm-12">
-              <div class="form-area">  
-                <form role="form">
-                <br style="clear:both">
-                <div class="form-group col-sm-8">
-                  <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" placeholder="Nombre" required>
-                </div>
-                <div class="form-group col-sm-4">
-                  <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT" required>
-                </div>
-                <div class="form-group col-sm-6">
-                  <input type="text" class="form-control" id="email1" name="email1" placeholder="Email 1" required>
-                </div>
-                <div class="form-group col-sm-6">
-                  <input type="text" class="form-control" id="email2" name="email2" placeholder="Email 2" required>
-                </div>
-                <div class="form-group col-sm-12">
-                  <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Domicilio" required>
-                </div>
-                <div class="form-group col-sm-12">
-                  <textarea class="form-control" type="textarea" id="observaciones" placeholder="Observaciones" maxlength="140" rows="7"></textarea>
-                  <span class="help-block"><p id="characterLeft" class="help-block ">Límite de caracteres alcanzado</p></span>
-                </div>
-                </form>
+            <form id="nuevoCliente"
+                        action="clientes.php"
+                        method="POST">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center">Nuevo Cliente</h4>
               </div>
-            </div>
-            <div class="modal-footer">
               <div class="col-sm-12">
-                <button type="button" id="submit" name="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Agregar</button>
+                <div class="form-area">  
+                  <br style="clear:both">
+                  <div class="form-group col-sm-8">
+                    <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" placeholder="Nombre" required>
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT" required>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <input type="text" class="form-control" id="email1" name="email1" placeholder="Email 1" required>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <input type="text" class="form-control" id="email2" name="email2" placeholder="Email 2" required>
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Domicilio" required>
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <textarea class="form-control" type="textarea" id="observaciones" name="observaciones" placeholder="Observaciones" maxlength="140" rows="7"></textarea>
+                    <span class="help-block"><p id="characterLeft" class="help-block ">Límite de caracteres alcanzado</p></span>
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <div class="modal-footer">
+                <div class="col-sm-12">
+                  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Agregar</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
