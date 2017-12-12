@@ -1,37 +1,6 @@
 <?php
-  require_once('includes/init_session_check.php');
-  require_once('includes/valores_menu.php');
-  require_once('includes/conexion.php');
 
-  $select = "SELECT * FROM clientes";
-  $result = mysqli_query($miConexion, $select);
-  if(!$result){ 
-    echo(mysql_error()); // TODO: better error handling
-  }
-
-  if (array_key_exists('submit', $_REQUEST)){
-
-    $nombreCliente = $_REQUEST['nombreCliente'];
-    $cuit          = $_REQUEST['cuit'];
-    $email1        = $_REQUEST['email1'];
-    $email2        = $_REQUEST['email2'];
-    $domicilio     = $_REQUEST['domicilio'];
-    $observaciones = $_REQUEST['observaciones'];
-
-    $query2 = mysqli_query($miConexion, 'SELECT MAX(codigo) AS codigo FROM clientes');
-    $latest = mysqli_fetch_array($query2);
-    $codCliente = $latest['codigo'] + 1;
-
-    $insert = "INSERT INTO `crm_client`.`clientes`(`codigo`, `nombre`, `cuit`, `email-1`, `email-2`, `domicilio`, `observaciones`) 
-               VALUES ( '$codCliente' , '$nombreCliente', '$cuit' , '$email1' , '$email2', '$domicilio', '$observaciones')";
-
-
-    $resultInsert = mysqli_query($miConexion, $insert);
-    if(!$resultInsert){ 
-      echo(mysql_error()); // TODO: better error handling
-    }
-
-  }
+  require_once('model/recuperarClientes.php');
 
 ?>
 
@@ -76,10 +45,10 @@
       <div class="modal fade" id="agregarUsuario" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
-          <div class="modal-content">
-            <form id="nuevoCliente"
-                        action="clientes.php"
-                        method="POST">
+          <form id="nuevoCliente"
+                      action="clientes.php"
+                      method="POST">
+            <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" style="text-align: center">Nuevo Cliente</h4>
@@ -111,11 +80,11 @@
 
               <div class="modal-footer">
                 <div class="col-sm-12">
-                  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Agregar</button>
+                  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right" onclick="myFunction()"><i class="fa fa-plus"></i> Agregar</button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -192,6 +161,13 @@
       });    
   });
   </script>
+
+<script>
+function myFunction() {
+  alert("alerta, reload disparado");
+    location.reload();
+}
+</script>
 
   </body>
 </html>
