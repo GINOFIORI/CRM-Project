@@ -3,12 +3,6 @@
   require_once('includes/valores_menu.php');
   require_once('includes/conexion.php');
 
-  $select = "SELECT * FROM clientes";
-  $result = mysqli_query($miConexion, $select);
-  if(!$result){ 
-    echo(mysql_error()); // TODO: better error handling
-  }
-
   if (array_key_exists('submit', $_REQUEST)){
 
     $nombreCliente = $_REQUEST['nombreCliente'];
@@ -30,6 +24,12 @@
       echo(mysql_error()); // TODO: better error handling
     }
 
+  }
+
+  $select = "SELECT * FROM clientes";
+  $result = mysqli_query($miConexion, $select);
+  if(!$result){ 
+    echo(mysql_error()); // TODO: better error handling
   }
 
 ?>

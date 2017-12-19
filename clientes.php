@@ -30,6 +30,9 @@
     ?>
 
     <div class="container-fluid" >
+      <?php var_dump($_POST);
+            var_dump($_REQUEST);
+            var_dump($_GET); ?>
       <div class="col-sm-6">
         <h2 style="margin-top: 0px">Clientes</h2>     
       </div> 
@@ -80,7 +83,7 @@
 
               <div class="modal-footer">
                 <div class="col-sm-12">
-                  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right" onclick="myFunction()"><i class="fa fa-plus"></i> Agregar</button>
+                  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Agregar</button>
                 </div>
               </div>
             </div>
@@ -91,6 +94,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th></th>
             <th>Nombre</th>
             <th>CUIT</th>
             <th>Email 1</th>
@@ -101,24 +105,26 @@
         </thead>
         <tbody>
           <?php
+          $row = 0;
           while ($fila = mysqli_fetch_array($result)) {
-            echo "<tr class='clickable-row'>";
-              echo '<td style="cursor:pointer">';
+            echo '<tr style="cursor:default" id="row'.$fila['codigo'].'" class="unchecked">';
+              echo '<td style="cursor:pointer" onClick="seleccionar('. $fila['codigo'] .')"><i class="fa fa-square-o" id="'. $fila['codigo'] .'"></i></td>';
+              echo '<td style="cursor:">';
               echo $fila['nombre'];
               echo '</td>';
-              echo '<td style="cursor:pointer">';
+              echo '<td>';
               echo $fila['cuit'];
               echo '</td>';
-              echo '<td style="cursor:pointer">';
+              echo '<td>';
               echo $fila['email-1'];
               echo '</td>';
-              echo '<td style="cursor:pointer">';
+              echo '<td>';
               echo $fila['email-2'];
               echo '</td>';
-              echo '<td style="cursor:pointer">';
+              echo '<td>';
               echo $fila['domicilio'];
               echo '</td>';
-              echo '<td style="cursor:pointer">';
+              echo '<td>';
               echo $fila['observaciones'];
               echo '</td>';
             echo '</tr>';          
@@ -162,12 +168,17 @@
   });
   </script>
 
-<script>
-function myFunction() {
-  alert("alerta, reload disparado");
-    location.reload();
-}
-</script>
+  <script type="text/javascript">
+    function seleccionar(fila){
+      if ($('#row'+fila).attr("class") == "unchecked"){
+        $('#'+fila).removeClass("fa fa-square-o").addClass("fa fa-check-square-o");
+        $('#row'+fila).attr("class", "checked");
+      }else{
+        $('#'+fila).removeClass("fa fa-check-square-o").addClass("fa fa-square-o");
+        $('#row'+fila).attr("class", "unchecked")
+      }
+    }
+  </script>
 
   </body>
 </html>
